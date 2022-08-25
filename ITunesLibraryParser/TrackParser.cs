@@ -16,7 +16,7 @@ namespace ITunesLibraryParser {
 
         private static Track CreateTrack(XElement trackElement) {
             return new Track {
-                TrackId = Int32.Parse(XElementParser.ParseStringValue(trackElement, "Track ID")),
+                TrackId = int.Parse(XElementParser.ParseStringValue(trackElement, "Track ID")),
                 Name = XElementParser.ParseStringValue(trackElement, "Name"),
                 Artist = XElementParser.ParseStringValue(trackElement, "Artist"),
                 AlbumArtist = XElementParser.ParseStringValue(trackElement, "Album Artist"),

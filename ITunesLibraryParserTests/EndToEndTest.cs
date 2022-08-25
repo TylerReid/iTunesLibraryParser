@@ -1,29 +1,28 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace ITunesLibraryParser.Tests {
-    [TestFixture]
-    public class EndToEndTest {
-        private readonly string fileLocation = Path.Combine(TestContext.CurrentContext.TestDirectory,
+        public class EndToEndTest {
+        private readonly string fileLocation = Path.Combine(Environment.CurrentDirectory,
             "sampleiTunesLibrary.xml");
         private ITunesLibrary subject;
 
-        [SetUp]
-        public void SetUp() {
+        public EndToEndTest() {
             subject = new ITunesLibrary(fileLocation);
         }
 
-        [Test]
+        [Fact]
         public void Tracks_Reads_Library_From_Filesystem_And_Parses() {
             var results = subject.Tracks;
 
             var result = results.First();
-            Assert.That(result.TrackId, Is.EqualTo(17714));
-            Assert.That(result.Name, Is.EqualTo("Dream Gypsy"));
-            Assert.That(result.Artist, Is.EqualTo("Bill Evans & Jim Hall"));
-            Assert.That(result.Rating, Is.EqualTo(80));
-            Assert.That(result.AlbumRating, Is.EqualTo(60));
+            Assert.Equal(17714, result.TrackId);
+            Assert.Equal("Dream Gypsy", result.Name);
+            Assert.Equal("Bill Evans & Jim Hall", result.Artist);
+            Assert.Equal(80, result.Rating);
+            Assert.Equal(60, result.AlbumRating);
             Assert.True(result.AlbumRatingComputed);
         }
     }
